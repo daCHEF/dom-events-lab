@@ -57,7 +57,9 @@ operatorButtons.forEach(button) => {
     });
   });
 
-
+  clearButton.addEventListener('click', () => {
+    const display = document.querySelector('.display');
+    display.innerText = '';
 
 /*-------------------------------- Functions --------------------------------*/
 if (operator === '+') {
@@ -71,3 +73,8 @@ if (operator === '+') {
 } else {
     result = 'Error';
 }
+
+  firstNumber = '';
+  secondNumber = '';
+  operator = '';
+});
