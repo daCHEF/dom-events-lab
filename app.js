@@ -28,6 +28,7 @@ const equalsButton = document.querySelector('.button.equals');
 const num1 = Number(firstNumber);
 const num2 = Number(secondNumber);
 const display = document.querySelector('.display');
+const clearButton = document.querySelector('.button.operator');
 
 
 /*-------------------------------- Variables --------------------------------*/
