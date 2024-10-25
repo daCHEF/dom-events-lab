@@ -23,19 +23,50 @@ When planning our code, we might consider the following:
 
 /*-------------------------------- Constants --------------------------------*/
 const buttons = document.querySelectorAll('.button.number');
+const operatorButtons = document.querySelectorAll('.button.operator');
+const equalsButton = document.querySelector('.button.equals');
+const num1 = Number(firstNumber);
+const num2 = Number(secondNumber);
+const display = document.querySelector('.display');
 
-buttons.forEach((button) => {
-  button.addEventListener('click', (event) => {
-    console.log(event.target.innerText);
-  });
-});
+
 /*-------------------------------- Variables --------------------------------*/
 let firstNumber = '';
 let secondNumber = '';
 let operator = '';
 
+
 /*------------------------ Cached Element References ------------------------*/
 
 /*----------------------------- Event Listeners -----------------------------*/
+buttons.forEach((button) => {
+    button.addEventListener('click', (event) => {
+      if (operator === '') { firstNumber += event.target.innerText;
+          console.log('First number:', firstNumber);
+      } else { secondNumber += event.target.innerText;
+          console.log('Second number:', secondNumber);
+      }
+    });
+  });
+
+operatorButtons.forEach(button) => {
+    button.addEventListener('click', (event) => {
+        operator = event.target.innerText;
+        console.log('Operator:', operator)
+    });
+  });
+
+
 
 /*-------------------------------- Functions --------------------------------*/
+if (operator === '+') {
+    result = num1 + num2;
+} else if (operator === '-') {
+    result = num1 - num2;
+} else if (operator === '*') {
+    result = num1 * num2;
+} else if (operator === '/') {
+    result = num1 / num2;
+} else {
+    result = 'Error';
+}
