@@ -22,59 +22,84 @@ When planning our code, we might consider the following:
 
 
 /*-------------------------------- Constants --------------------------------*/
-const buttons = document.querySelectorAll('.button.number');
-const operatorButtons = document.querySelectorAll('.button.operator');
-const equalsButton = document.querySelector('.button.equals');
-const num1 = Number(firstNumber);
-const num2 = Number(secondNumber);
-const display = document.querySelector('.display');
-const clearButton = document.querySelector('.button.operator');
 
 
 /*-------------------------------- Variables --------------------------------*/
-let firstNumber = '';
-let secondNumber = '';
+let numOne = '';
+let numTwo = '';
 let operator = '';
+let calcOutput = '';
 
-
-/*------------------------ Cached Element References ------------------------*/
-
-/*----------------------------- Event Listeners -----------------------------*/
-buttons.forEach((button) => {
-    button.addEventListener('click', (event) => {
-      if (operator === '') { firstNumber += event.target.innerText;
-          console.log('First number:', firstNumber);
-      } else { secondNumber += event.target.innerText;
-          console.log('Second number:', secondNumber);
-      }
-    });
-  });
-
-operatorButtons.forEach(button) => {
-    button.addEventListener('click', (event) => {
-        operator = event.target.innerText;
-        console.log('Operator:', operator)
-    });
-  });
-
-  clearButton.addEventListener('click', () => {
-    const display = document.querySelector('.display');
-    display.innerText = '';
+/*------------------------ Cached Element References (non-constants) ------------------------*/
+const clearBtn = document.querySelector('.clear');
+const display = document.querySelector('.display');
+const equalsBtn = document.querySelector('.equals');
+const numberBtns = document.querySelectorAll('.number');
+const operatorBtns = document.querySelectorAll('.operator');
 
 /*-------------------------------- Functions --------------------------------*/
-if (operator === '+') {
-    result = num1 + num2;
-} else if (operator === '-') {
-    result = num1 - num2;
-} else if (operator === '*') {
-    result = num1 * num2;
-} else if (operator === '/') {
-    result = num1 / num2;
-} else {
-    result = 'Error';
-}
-
-  firstNumber = '';
-  secondNumber = '';
+const clearClick = (event) => {
+  display.innerText = '';
+  numOne = '';
+  numTwo = '';
   operator = '';
-});
+  calcOutput = '';
+  operatorBtns.forEach((btn) => btn.style.border = '');
+};
+
+const numClick = (event) => {
+  console.log('Number buttin clicked');
+    if (calcOutput) clearClick();
+
+  if (numOne && operator) {
+    display.innerText += event.target.innerText;
+    numTwo = display.innerText;
+  } else {
+    display.innerText += event.target.innerText;
+    numOne = display.innerText;
+  }
+};
+
+const operatorClick = (event) => {
+    operator = event.target.innerText;
+    operatorBtns.forEach((btn) => btn.style.border = '');
+    event.target.style.border = '2px solid white';
+    display.innerText = '';
+  };
+
+const equalsClick = (event) => {
+  let number1 = parseFloat(numOne);
+  let number2 = parseFloat(numTwo);
+  let result;
+
+  switch (operator) {
+    case '+':
+      result = number1 + number2;
+      break;
+    case '-':
+      result = number1 - number2;
+      break;
+    case '*':
+      result = number1 * number2;
+      break;
+    case '/':
+      result = number1 / number2;
+      break;
+    default:
+      result = 'Error';
+  }
+
+  display.innerText = result;
+  calcOutput = result;
+  numOne = result.toString();
+  numTwo = '';
+  operator = '';
+};
+
+/*----------------------------- Event Listeners -----------------------------*/
+clearBtn.addEventListener('click', clearClick);
+equalsBtn.addEventListener('click', equalsClick);
+numberBtns.forEach((btn) => btn.addEventListener('click', numClick));
+operatorBtns.forEach((btn) => btn.addEventListener('click', operatorClick));
+
+
